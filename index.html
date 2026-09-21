@@ -1,78 +1,204 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Little English Adventure</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rainbow English Quest – Intermediate</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap');
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Nunito,sans-serif;color:#51466d;background:linear-gradient(135deg,#fff1ad,#c9f3ff,#ffd8ea);padding:22px}
-.wrap{max-width:950px;margin:auto}.brand{font:800 clamp(30px,6vw,52px) 'Baloo 2';color:#805bc5;text-shadow:3px 3px #fff}.tag{float:right;background:white;padding:10px 16px;border-radius:30px;font-weight:800}
-.card{background:#fffdfb;border:5px solid white;border-radius:32px;padding:clamp(20px,5vw,45px);margin-top:22px;box-shadow:0 12px 0 #b8a6d833,0 20px 35px #8064a222;text-align:center}
-h1,h2{font-family:'Baloo 2';line-height:1.1}h1{font-size:clamp(38px,7vw,65px);color:#ff70ad;margin:10px 0}h2{font-size:38px;color:#805bc5}
-.hero{font-size:110px;animation:bob 2s infinite}@keyframes bob{50%{transform:translateY(-12px) rotate(5deg)}}
-p{font-size:18px;font-weight:700}.btn{border:0;border-radius:18px;padding:14px 24px;margin:8px;font:800 18px Nunito;color:white;cursor:pointer;box-shadow:0 6px #8064a233}.pink{background:#ff82b7}.blue{background:#82bfff}.purple{background:#a895f5}.green{background:#72d9aa}
-input{padding:15px;border:3px solid #e7dcff;border-radius:18px;text-align:center;font:700 17px Nunito;width:min(400px,100%)}
-.hidden{display:none}.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:800}.bar{height:17px;background:#eee7fb;border-radius:20px;margin:15px 0;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,#ff91bd,#ffd66e,#8ed8ff);transition:.3s}
-.num{color:#ff70ad;font-size:19px}.question{font:800 clamp(27px,5vw,43px) 'Baloo 2';color:#5b4d86;margin:18px 0}
-.answers{display:grid;grid-template-columns:1fr 1fr;gap:14px}.answer{background:white;border:4px solid #eadfff;border-radius:22px;padding:18px;text-align:left;font:800 18px Nunito;color:#51466d;cursor:pointer;box-shadow:0 5px #e6daf8}.answer:hover{background:#faf6ff;border-color:#bca7ff}.answer.correct{background:#d9ffeb;border-color:#62d79f}.answer.wrong{background:#ffe0e8;border-color:#ff91aa}.answer:disabled{cursor:default}
-.feedback{padding:15px;border-radius:18px;margin-top:18px;font-size:17px}.good{background:#e0ffef;color:#21865b}.bad{background:#fff0c9;color:#9a6a12}.stars{font-size:35px;color:#ffc94d}.review{text-align:left;max-width:650px;margin:20px auto}.review div{background:#fff4f8;border-left:6px solid #ff91bd;border-radius:12px;padding:12px;margin:8px}
-@media(max-width:650px){.answers{grid-template-columns:1fr}.tag{float:none}.card{border-radius:24px}}
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:"Trebuchet MS",Arial,sans-serif;
+    background:linear-gradient(135deg,#fff4b8 0%,#d9f7ff 42%,#e8d9ff 100%);
+    min-height:100vh;color:#3b3552;
+    overflow-x:hidden;
+  }
+  .cloud{position:fixed;background:#fff;opacity:.65;border-radius:50px;z-index:-1}
+  .c1{width:190px;height:55px;top:7%;left:-30px}.c2{width:230px;height:65px;top:18%;right:-55px}
+  .star{position:fixed;font-size:28px;z-index:-1;animation:float 4s ease-in-out infinite}
+  .s1{left:8%;top:40%}.s2{right:9%;top:55%;animation-delay:1s}.s3{left:18%;bottom:7%;animation-delay:2s}
+  @keyframes float{50%{transform:translateY(-10px) rotate(8deg)}}
+  .app{width:min(920px,94vw);margin:28px auto 40px}
+  .header{
+    background:rgba(255,255,255,.9);border:4px solid #fff;border-radius:30px;
+    padding:22px 28px;box-shadow:0 12px 30px rgba(93,76,120,.14);
+    text-align:center;position:relative
+  }
+  .badge{display:inline-block;background:#ff8db3;color:white;padding:7px 16px;border-radius:999px;font-weight:800;font-size:13px}
+  h1{margin:10px 0 3px;font-size:clamp(30px,5vw,48px);color:#6b5bd2}
+  .subtitle{margin:0;font-size:16px;color:#77718b}
+  .mascot{font-size:55px;position:absolute;right:22px;top:14px}
+  .game{
+    margin-top:20px;background:rgba(255,255,255,.95);border-radius:30px;
+    padding:28px;box-shadow:0 15px 35px rgba(93,76,120,.16)
+  }
+  .topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .progress-wrap{flex:1;min-width:230px}
+  .progress-text{font-weight:800;font-size:14px;margin-bottom:7px}
+  .progress{height:14px;background:#eee9f8;border-radius:20px;overflow:hidden}
+  .bar{height:100%;width:10%;background:linear-gradient(90deg,#69d6c2,#7c6be6);border-radius:20px;transition:.35s}
+  .score{background:#fff2a8;padding:9px 15px;border-radius:16px;font-weight:900}
+  .question-card{
+    margin-top:25px;background:linear-gradient(145deg,#f8f5ff,#fffdf4);
+    border:3px solid #eee8ff;border-radius:25px;padding:25px
+  }
+  .q-number{color:#ff6f9f;font-weight:900;margin-bottom:8px}
+  .question{font-size:clamp(21px,3vw,29px);font-weight:900;line-height:1.35;margin:0 0 22px}
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  button{font-family:inherit;cursor:pointer;border:0}
+  .answer{
+    background:white;border:3px solid #ddd8ef;border-radius:19px;padding:15px 18px;
+    font-size:17px;font-weight:800;text-align:left;transition:.15s;min-height:62px;
+  }
+  .answer:hover{transform:translateY(-3px);border-color:#8f82eb;background:#f7f5ff}
+  .answer.correct{background:#dff9e8;border-color:#55c987;color:#237b4c}
+  .answer.wrong{background:#ffe1e8;border-color:#ff7695;color:#a62e4e}
+  .answer:disabled{cursor:default}
+  .feedback{min-height:48px;margin-top:18px;padding:12px 16px;border-radius:15px;font-weight:800;display:none}
+  .feedback.show{display:block}
+  .feedback.good{background:#e7faef;color:#237b4c}.feedback.bad{background:#fff0f3;color:#a62e4e}
+  .controls{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+  .hint{color:#80788f;font-size:13px}
+  .next{
+    background:linear-gradient(135deg,#7d6ce5,#a96be7);color:white;
+    padding:13px 25px;border-radius:17px;font-size:16px;font-weight:900;
+    box-shadow:0 7px 0 #5d50b7;transition:.12s
+  }
+  .next:active{transform:translateY(4px);box-shadow:0 3px 0 #5d50b7}
+  .next:disabled{opacity:.45;cursor:not-allowed}
+  .result{text-align:center;padding:20px 5px}
+  .trophy{font-size:78px;animation:bounce 1s infinite alternate}
+  @keyframes bounce{to{transform:translateY(-10px)}}
+  .result h2{font-size:36px;color:#6b5bd2;margin:8px}
+  .final-score{font-size:23px;font-weight:900;margin:15px}
+  .stars{font-size:35px;letter-spacing:5px}
+  .restart{background:#ff8db3;color:white;padding:14px 25px;border-radius:18px;font-weight:900;font-size:16px;box-shadow:0 6px 0 #d8658b}
+  .topics{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px}
+  .topic{background:#eef7ff;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800;color:#58709a}
+  @media(max-width:650px){.answers{grid-template-columns:1fr}.mascot{display:none}.game{padding:18px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="brand">🌈 Little English Adventure <span class="tag">⭐ Mini Quiz</span></div>
+<div class="cloud c1"></div><div class="cloud c2"></div>
+<div class="star s1">⭐</div><div class="star s2">✨</div><div class="star s3">🌈</div>
 
-<section id="home" class="card">
-<div class="hero">🦄</div><h1>Let's Play English!</h1>
-<p>A cute childhood-style English adventure with 10 questions. Choose the right answer and collect stars! ✨</p>
-<input id="name" placeholder="Type your name here...">
-<br><button class="btn pink" onclick="start()">START ADVENTURE 🚀</button>
-<button class="btn blue" id="soundHome" onclick="toggleSound()">🔊 Sound: ON</button>
-</section>
+<div class="app">
+  <header class="header">
+    <span class="badge">🎮 INTERMEDIATE ENGLISH</span>
+    <h1>Rainbow English Quest</h1>
+    <p class="subtitle">Learn • Think • Choose • Have Fun!</p>
+    <div class="mascot">🦊</div>
+  </header>
 
-<section id="quiz" class="card hidden">
-<div class="top"><span id="player"></span><span id="score">⭐ 0 points</span></div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<div class="num" id="num"></div><div class="question" id="q"></div>
-<div class="answers" id="answers"></div><div id="feedback" class="feedback hidden"></div>
-<button id="next" class="btn purple hidden" onclick="next()">NEXT QUESTION ➜</button>
-<button class="btn blue" id="soundQuiz" onclick="toggleSound()">🔊 Sound: ON</button>
-</section>
+  <main class="game" id="game">
+    <div class="topbar">
+      <div class="progress-wrap">
+        <div class="progress-text" id="progressText">Question 1 of 10</div>
+        <div class="progress"><div class="bar" id="bar"></div></div>
+      </div>
+      <div class="score">⭐ Score: <span id="score">0</span></div>
+    </div>
 
-<section id="result" class="card hidden">
-<div class="hero" id="emoji">🏆</div><h1 id="title"></h1><p id="message"></p>
-<div class="stars" id="stars"></div><h2>Score: <span id="final"></span>/100</h2>
-<p>Correct answers: <b id="correct"></b>/10</p><div class="review" id="review"></div>
-<button class="btn pink" onclick="start()">PLAY AGAIN 🔄</button><button class="btn green" onclick="home()">HOME 🏡</button>
-</section>
+    <section class="question-card">
+      <div class="q-number" id="qNumber">QUESTION 1</div>
+      <p class="question" id="question"></p>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="controls">
+        <span class="hint">💡 Choose one answer.</span>
+        <button class="next" id="next" disabled>Next ➜</button>
+      </div>
+    </section>
+  </main>
 </div>
 
 <script>
-const data=[
-["What is your name?",["I am fine.","My name is Anna.","I am 20 years old.","I am a student."],1,"The correct response is “My name is Anna.”"],
-["She ___ a student.",["am","are","is","be"],2,"We use “is” with she."],
-["I ___ a dog.",["have","has","having","is"],0,"We use “have” with I."],
-["What color is the sky?",["Blue","Green","Black","Pink"],0,"The sky is usually blue."],
-["“Apple” means:",["Quả cam","Quả táo","Quả chuối","Quả dưa hấu"],1,"Apple means “quả táo”."],
-["They ___ happy.",["am","is","are","be"],2,"We use “are” with they."],
-["How old are you?",["I am a student.","I am fine.","I am 18 years old.","My name is Tom."],2,"The question asks about age."],
-["Choose the correct sentence:",["He are a teacher.","He am a teacher.","He is a teacher.","He be a teacher."],2,"The correct sentence is “He is a teacher.”"],
-["What is the opposite of “big”?",["Long","Small","Tall","Fast"],1,"The opposite of big is small."],
-["“Thank you” – “___”",["Goodbye","Sorry","You’re welcome.","Good morning."],2,"A polite response is “You’re welcome.”"]
+const questions = [
+  {q:"She ___ to school every morning.", a:["go","goes","going","gone"], c:1},
+  {q:"I have lived here ___ 2022.", a:["for","since","at","from"], c:1},
+  {q:"If it rains tomorrow, we ___ at home.", a:["stay","stayed","will stay","staying"], c:2},
+  {q:"My brother is ___ than me.", a:["tall","taller","tallest","more tall"], c:1},
+  {q:"I was tired, ___ I went to bed early.", a:["but","because","so","although"], c:2},
+  {q:"Choose the correct sentence:", a:[
+    "She has already finished her homework.",
+    "She already has finish her homework.",
+    "She have already finished her homework.",
+    "She already finishing her homework."
+  ], c:0},
+  {q:"“Borrow” means:", a:["Cho ai đó mượn","Mượn từ ai đó","Mua thứ gì đó","Trả lại thứ gì đó"], c:1},
+  {q:"If I ___ more free time, I would learn Korean.", a:["have","had","will have","having"], c:1},
+  {q:"The movie was ___ interesting that I watched it twice.", a:["too","very","so","enough"], c:2},
+  {q:"She has worked here ___ five years.", a:["since","during","for","from"], c:2}
 ];
-let i=0,score=0,right=0,name="",sound=true,wrong=[];
-const $=x=>document.getElementById(x);
-function tone(f=700,d=.12){if(!sound)return;try{let c=new(window.AudioContext||window.webkitAudioContext),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.stop(c.currentTime+d)}catch(e){}}
-function speak(t){if(sound&&speechSynthesis){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;u.pitch=1.2;speechSynthesis.speak(u)}}
-function toggleSound(){sound=!sound;let t=sound?"🔊 Sound: ON":"🔇 Sound: OFF";$("soundHome").textContent=t;$("soundQuiz").textContent=t}
-function start(){window.done=false;name=$("name").value.trim()||"Little Star";i=0;score=0;right=0;wrong=[];$("home").classList.add("hidden");$("result").classList.add("hidden");$("quiz").classList.remove("hidden");show()}
-function show(){let d=data[i];$("player").textContent="🌟 "+name;$("score").textContent="⭐ "+score+" points";$("num").textContent="Question "+(i+1)+" of 10";$("q").textContent=d[0];$("fill").style.width=(i/10*100)+"%";$("feedback").className="feedback hidden";$("next").classList.add("hidden");$("answers").innerHTML="";d[1].forEach((a,n)=>{let b=document.createElement("button");b.className="answer";b.innerHTML="<b>"+("ABCD"[n])+".</b> "+a;b.onclick=()=>choose(n,b);$("answers").appendChild(b)});speak(d[0])}
-function choose(n,b){let d=data[i],bs=[...$("answers").children];if(window.done)return;window.done=true;bs.forEach(x=>x.disabled=true);bs[d[2]].classList.add("correct");if(n===d[2]){score+=10;right++;b.classList.add("correct");$("feedback").className="feedback good";$("feedback").textContent="🎉 Correct! "+d[3];tone(900);setTimeout(()=>tone(1100),100)}else{b.classList.add("wrong");wrong.push([d[0],d[1][n],d[1][d[2]]]);$("feedback").className="feedback bad";$("feedback").textContent="🌼 Not quite! "+d[3];tone(220,.2)}$("feedback").classList.remove("hidden");$("score").textContent="⭐ "+score+" points";$("fill").style.width=((i+1)/10*100)+"%";$("next").textContent=i===9?"SEE MY RESULT 🏆":"NEXT QUESTION ➜";$("next").classList.remove("hidden")}
-function next(){window.done=false;i++;if(i>=10)finish();else show()}
-function finish(){$("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("final").textContent=score;$("correct").textContent=right;let t,e,s,m;if(score===100){t="Perfect Superstar!";e="🏆";s="⭐⭐⭐⭐⭐";m="You answered every question correctly!"}else if(score>=70){t="Amazing Job!";e="🌟";s="⭐⭐⭐⭐";m="Fantastic work! Keep practicing!"}else if(score>=40){t="Good Try!";e="🦋";s="⭐⭐⭐";m="Every mistake helps you learn!"}else{t="Keep Going!";e="🌱";s="⭐⭐";m="Try again and collect more stars!"}$("title").textContent=t;$("emoji").textContent=e;$("stars").textContent=s;$("message").textContent=name+", "+m;$("review").innerHTML=wrong.length?"<h2>🌼 Let's Review</h2>"+wrong.map(x=>"<div><b>"+x[0]+"</b><br>Your answer: "+x[1]+"<br>Correct answer: <b>"+x[2]+"</b></div>").join(""):"<div class='feedback good'>🎊 Wonderful! Every answer was correct!</div>";tone(700);setTimeout(()=>tone(1000),120)}
-function home(){$("result").classList.add("hidden");$("home").classList.remove("hidden")}
+
+let index=0, score=0, answered=false;
+const qEl=document.getElementById("question"), answersEl=document.getElementById("answers");
+const feedback=document.getElementById("feedback"), next=document.getElementById("next");
+const scoreEl=document.getElementById("score"), bar=document.getElementById("bar");
+const progressText=document.getElementById("progressText"), qNumber=document.getElementById("qNumber");
+
+function render(){
+  const item=questions[index];
+  answered=false; next.disabled=true; feedback.className="feedback"; feedback.textContent="";
+  qEl.textContent=item.q; qNumber.textContent=`QUESTION ${index+1}`;
+  progressText.textContent=`Question ${index+1} of ${questions.length}`;
+  bar.style.width=`${((index+1)/questions.length)*100}%`;
+  answersEl.innerHTML="";
+  item.a.forEach((choice,i)=>{
+    const btn=document.createElement("button");
+    btn.className="answer";
+    btn.innerHTML=`<strong>${String.fromCharCode(65+i)}.</strong> ${choice}`;
+    btn.onclick=()=>selectAnswer(i,btn);
+    answersEl.appendChild(btn);
+  });
+}
+function selectAnswer(i,btn){
+  if(answered) return;
+  answered=true;
+  const item=questions[index];
+  [...answersEl.children].forEach((b,j)=>{
+    b.disabled=true;
+    if(j===item.c) b.classList.add("correct");
+  });
+  if(i===item.c){
+    score++;
+    scoreEl.textContent=score;
+    feedback.textContent="🎉 Correct! Great job!";
+    feedback.className="feedback show good";
+  }else{
+    btn.classList.add("wrong");
+    feedback.textContent=`🌟 Not quite! The correct answer is ${String.fromCharCode(65+item.c)}.`;
+    feedback.className="feedback show bad";
+  }
+  next.disabled=false;
+}
+next.onclick=()=>{
+  if(!answered) return;
+  index++;
+  if(index<questions.length) render(); else showResult();
+};
+function showResult(){
+  let stars=score>=9?"⭐⭐⭐":score>=6?"⭐⭐":"⭐";
+  let message=score===10?"Perfect! You are an English superstar! 🏆":
+              score>=8?"Amazing work! Keep shining! 🌈":
+              score>=5?"Good effort! Practice makes progress! 💪":
+              "Nice try! Keep learning and try again! 🌱";
+  document.getElementById("game").innerHTML=`
+    <div class="result">
+      <div class="trophy">${score>=8?"🏆":"🎯"}</div>
+      <div class="stars">${stars}</div>
+      <h2>Quest Complete!</h2>
+      <div class="final-score">You scored <b>${score}</b> / ${questions.length}</div>
+      <p>${message}</p>
+      <div class="topics">
+        <span class="topic">Grammar</span><span class="topic">Vocabulary</span>
+        <span class="topic">Tenses</span><span class="topic">Comparatives</span>
+        <span class="topic">Conditionals</span>
+      </div>
+      <br><br>
+      <button class="restart" onclick="location.reload()">🔄 Play Again</button>
+    </div>`;
+}
+render();
 </script>
 </body>
 </html>
