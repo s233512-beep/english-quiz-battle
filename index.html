@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Little English Adventure</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap');
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Nunito,sans-serif;color:#51466d;background:linear-gradient(135deg,#fff1ad,#c9f3ff,#ffd8ea);padding:22px}
+.wrap{max-width:950px;margin:auto}.brand{font:800 clamp(30px,6vw,52px) 'Baloo 2';color:#805bc5;text-shadow:3px 3px #fff}.tag{float:right;background:white;padding:10px 16px;border-radius:30px;font-weight:800}
+.card{background:#fffdfb;border:5px solid white;border-radius:32px;padding:clamp(20px,5vw,45px);margin-top:22px;box-shadow:0 12px 0 #b8a6d833,0 20px 35px #8064a222;text-align:center}
+h1,h2{font-family:'Baloo 2';line-height:1.1}h1{font-size:clamp(38px,7vw,65px);color:#ff70ad;margin:10px 0}h2{font-size:38px;color:#805bc5}
+.hero{font-size:110px;animation:bob 2s infinite}@keyframes bob{50%{transform:translateY(-12px) rotate(5deg)}}
+p{font-size:18px;font-weight:700}.btn{border:0;border-radius:18px;padding:14px 24px;margin:8px;font:800 18px Nunito;color:white;cursor:pointer;box-shadow:0 6px #8064a233}.pink{background:#ff82b7}.blue{background:#82bfff}.purple{background:#a895f5}.green{background:#72d9aa}
+input{padding:15px;border:3px solid #e7dcff;border-radius:18px;text-align:center;font:700 17px Nunito;width:min(400px,100%)}
+.hidden{display:none}.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:800}.bar{height:17px;background:#eee7fb;border-radius:20px;margin:15px 0;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,#ff91bd,#ffd66e,#8ed8ff);transition:.3s}
+.num{color:#ff70ad;font-size:19px}.question{font:800 clamp(27px,5vw,43px) 'Baloo 2';color:#5b4d86;margin:18px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:14px}.answer{background:white;border:4px solid #eadfff;border-radius:22px;padding:18px;text-align:left;font:800 18px Nunito;color:#51466d;cursor:pointer;box-shadow:0 5px #e6daf8}.answer:hover{background:#faf6ff;border-color:#bca7ff}.answer.correct{background:#d9ffeb;border-color:#62d79f}.answer.wrong{background:#ffe0e8;border-color:#ff91aa}.answer:disabled{cursor:default}
+.feedback{padding:15px;border-radius:18px;margin-top:18px;font-size:17px}.good{background:#e0ffef;color:#21865b}.bad{background:#fff0c9;color:#9a6a12}.stars{font-size:35px;color:#ffc94d}.review{text-align:left;max-width:650px;margin:20px auto}.review div{background:#fff4f8;border-left:6px solid #ff91bd;border-radius:12px;padding:12px;margin:8px}
+@media(max-width:650px){.answers{grid-template-columns:1fr}.tag{float:none}.card{border-radius:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand">🌈 Little English Adventure <span class="tag">⭐ Mini Quiz</span></div>
+
+<section id="home" class="card">
+<div class="hero">🦄</div><h1>Let's Play English!</h1>
+<p>A cute childhood-style English adventure with 10 questions. Choose the right answer and collect stars! ✨</p>
+<input id="name" placeholder="Type your name here...">
+<br><button class="btn pink" onclick="start()">START ADVENTURE 🚀</button>
+<button class="btn blue" id="soundHome" onclick="toggleSound()">🔊 Sound: ON</button>
+</section>
+
+<section id="quiz" class="card hidden">
+<div class="top"><span id="player"></span><span id="score">⭐ 0 points</span></div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div class="num" id="num"></div><div class="question" id="q"></div>
+<div class="answers" id="answers"></div><div id="feedback" class="feedback hidden"></div>
+<button id="next" class="btn purple hidden" onclick="next()">NEXT QUESTION ➜</button>
+<button class="btn blue" id="soundQuiz" onclick="toggleSound()">🔊 Sound: ON</button>
+</section>
+
+<section id="result" class="card hidden">
+<div class="hero" id="emoji">🏆</div><h1 id="title"></h1><p id="message"></p>
+<div class="stars" id="stars"></div><h2>Score: <span id="final"></span>/100</h2>
+<p>Correct answers: <b id="correct"></b>/10</p><div class="review" id="review"></div>
+<button class="btn pink" onclick="start()">PLAY AGAIN 🔄</button><button class="btn green" onclick="home()">HOME 🏡</button>
+</section>
+</div>
+
+<script>
+const data=[
+["What is your name?",["I am fine.","My name is Anna.","I am 20 years old.","I am a student."],1,"The correct response is “My name is Anna.”"],
+["She ___ a student.",["am","are","is","be"],2,"We use “is” with she."],
+["I ___ a dog.",["have","has","having","is"],0,"We use “have” with I."],
+["What color is the sky?",["Blue","Green","Black","Pink"],0,"The sky is usually blue."],
+["“Apple” means:",["Quả cam","Quả táo","Quả chuối","Quả dưa hấu"],1,"Apple means “quả táo”."],
+["They ___ happy.",["am","is","are","be"],2,"We use “are” with they."],
+["How old are you?",["I am a student.","I am fine.","I am 18 years old.","My name is Tom."],2,"The question asks about age."],
+["Choose the correct sentence:",["He are a teacher.","He am a teacher.","He is a teacher.","He be a teacher."],2,"The correct sentence is “He is a teacher.”"],
+["What is the opposite of “big”?",["Long","Small","Tall","Fast"],1,"The opposite of big is small."],
+["“Thank you” – “___”",["Goodbye","Sorry","You’re welcome.","Good morning."],2,"A polite response is “You’re welcome.”"]
+];
+let i=0,score=0,right=0,name="",sound=true,wrong=[];
+const $=x=>document.getElementById(x);
+function tone(f=700,d=.12){if(!sound)return;try{let c=new(window.AudioContext||window.webkitAudioContext),o=c.createOscillator(),g=c.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+d);o.stop(c.currentTime+d)}catch(e){}}
+function speak(t){if(sound&&speechSynthesis){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;u.pitch=1.2;speechSynthesis.speak(u)}}
+function toggleSound(){sound=!sound;let t=sound?"🔊 Sound: ON":"🔇 Sound: OFF";$("soundHome").textContent=t;$("soundQuiz").textContent=t}
+function start(){window.done=false;name=$("name").value.trim()||"Little Star";i=0;score=0;right=0;wrong=[];$("home").classList.add("hidden");$("result").classList.add("hidden");$("quiz").classList.remove("hidden");show()}
+function show(){let d=data[i];$("player").textContent="🌟 "+name;$("score").textContent="⭐ "+score+" points";$("num").textContent="Question "+(i+1)+" of 10";$("q").textContent=d[0];$("fill").style.width=(i/10*100)+"%";$("feedback").className="feedback hidden";$("next").classList.add("hidden");$("answers").innerHTML="";d[1].forEach((a,n)=>{let b=document.createElement("button");b.className="answer";b.innerHTML="<b>"+("ABCD"[n])+".</b> "+a;b.onclick=()=>choose(n,b);$("answers").appendChild(b)});speak(d[0])}
+function choose(n,b){let d=data[i],bs=[...$("answers").children];if(window.done)return;window.done=true;bs.forEach(x=>x.disabled=true);bs[d[2]].classList.add("correct");if(n===d[2]){score+=10;right++;b.classList.add("correct");$("feedback").className="feedback good";$("feedback").textContent="🎉 Correct! "+d[3];tone(900);setTimeout(()=>tone(1100),100)}else{b.classList.add("wrong");wrong.push([d[0],d[1][n],d[1][d[2]]]);$("feedback").className="feedback bad";$("feedback").textContent="🌼 Not quite! "+d[3];tone(220,.2)}$("feedback").classList.remove("hidden");$("score").textContent="⭐ "+score+" points";$("fill").style.width=((i+1)/10*100)+"%";$("next").textContent=i===9?"SEE MY RESULT 🏆":"NEXT QUESTION ➜";$("next").classList.remove("hidden")}
+function next(){window.done=false;i++;if(i>=10)finish();else show()}
+function finish(){$("quiz").classList.add("hidden");$("result").classList.remove("hidden");$("final").textContent=score;$("correct").textContent=right;let t,e,s,m;if(score===100){t="Perfect Superstar!";e="🏆";s="⭐⭐⭐⭐⭐";m="You answered every question correctly!"}else if(score>=70){t="Amazing Job!";e="🌟";s="⭐⭐⭐⭐";m="Fantastic work! Keep practicing!"}else if(score>=40){t="Good Try!";e="🦋";s="⭐⭐⭐";m="Every mistake helps you learn!"}else{t="Keep Going!";e="🌱";s="⭐⭐";m="Try again and collect more stars!"}$("title").textContent=t;$("emoji").textContent=e;$("stars").textContent=s;$("message").textContent=name+", "+m;$("review").innerHTML=wrong.length?"<h2>🌼 Let's Review</h2>"+wrong.map(x=>"<div><b>"+x[0]+"</b><br>Your answer: "+x[1]+"<br>Correct answer: <b>"+x[2]+"</b></div>").join(""):"<div class='feedback good'>🎊 Wonderful! Every answer was correct!</div>";tone(700);setTimeout(()=>tone(1000),120)}
+function home(){$("result").classList.add("hidden");$("home").classList.remove("hidden")}
+</script>
+</body>
+</html>
